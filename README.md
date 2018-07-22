@@ -1,4 +1,4 @@
-# 图涵接口文档
+# 图涵APP文档
 
 PhotoSaying Client-Server Interface Document
 
@@ -6,19 +6,46 @@ PhotoSaying Client-Server Interface Document
 
 > 最后修改于2018年7月22日 下午14:50
 
+## 数据库
+
+### User表
+
+
+
+
+
+
 ## 网页端
 
 ### 首页
 
 URL [https://photosaying.xht97.cn](https://photosaying.xht97.cn)
 
+###### 支持格式
+> HTML
+
+###### HTTP请求方式
+> GET
+
 ### 用户主页
 
 URL [https://photosaying.xht97.cn/userHome](https://photosaying.xht97.cn/userHome)
 
+###### 支持格式
+> HTML
+
+###### HTTP请求方式
+> GET
+
 ### 社区主页
 
 URL [https://photosaying.xht97.cn/community](https://photosaying.xht97.cn/community)
+
+###### 支持格式
+> HTML
+
+###### HTTP请求方式
+> GET
 
 ## 客户端Restful API
 
@@ -53,7 +80,7 @@ URL [https://photosaying.xht97.cn/community](https://photosaying.xht97.cn/commun
 |errorMsg   |int   |错误信息代号         |
 |token  |string | 请求成功返回的Token，用于用户后续请求需要认证的api接口                     |
 
-###### 接口示例
+##### 接口示例
 地址：[http://photosaying.xht97.cn/api/v1/login](http://photosaying.xht97.cn/api/v1/login)
 
 ```{json}
@@ -64,7 +91,7 @@ URL [https://photosaying.xht97.cn/community](https://photosaying.xht97.cn/commun
 }
 ```
 
-#### 2.用户注册
+#### 2.用户注册接口
 
 ##### 接口功能
 > 根据用户设置的账号和密码验证执行登录操作
@@ -94,13 +121,13 @@ URL [https://photosaying.xht97.cn/community](https://photosaying.xht97.cn/commun
 |message    |string   |结果信息   |
 
 ###### 接口示例
-地址：[http://photosaying.xht97.cn/api/v1/login](http://photosaying.xht97.cn/api/v1/login)
+地址：[http://photosaying.xht97.cn/api/v1/register](http://photosaying.xht97.cn/api/v1/register)
 
 ```{json}
 {
     "statue": ture,
     "errorMsg": 0,
-    "token": "34wdsfasr123easdaqerw"
+    "message": "验证码发送成功"
 }
 ```
 
@@ -127,6 +154,53 @@ URL [https://photosaying.xht97.cn/community](https://photosaying.xht97.cn/commun
 |errorMsg   |int   |错误信息代号         |
 |message    |string   |结果信息   |
 
+### 3.用户更新个人信息接口
+
+##### URL
+> [https://photosaying.xht97.cn/api/v1/user/update](https://photosaying.xht97.cn/api/v1/user/update)
+
+##### 支持格式
+> JSON
+
+##### HTTP请求方式
+> POST
+
+##### 请求参数
+|参数|必选|类型|说明|
+|:-----  |:-------|:-----|-----        |
+|name    |ture    |string   |用户名，可以为手机号或者邮箱  |
+|content      |true  |string(json)      |用户需要修改的个人信息，格式为JSON，k-v对应   |
+
+##### 返回字段
+|返回字段|字段类型|说明                              |
+|:-----   |:------|:-----------------------------   |
+|status   |boolean    |返回结果状态，true为成功，false为失败   |
+|errorMsg   |int   |错误信息代号         |
+|message    |string   |结果信息   |
+
+### 4.请求用户信息
+
+##### URL
+> [https://photosaying.xht97.cn/api/v1/user/{id}](https://photosaying.xht97.cn/api/v1/user/{id})
+
+##### 支持格式
+> JSON
+
+##### HTTP请求方式
+> GET
+
+##### 请求参数
+|参数|必选|类型|说明|
+|:-----  |:-------|:-----|-----        |
+|id    |ture    |string   |请求的用户唯一ID  |
+
+##### 返回字段
+|返回字段|字段类型|说明                              |
+|:-----   |:------|:-----------------------------   |
+|status   |boolean    |返回结果状态，true为成功，false为失败   |
+|content   |string(json)      |请求的用户的信息，格式为JSON，k-v对应       |
+|errorMsg   |int   |错误信息代号         |
+|message    |string   |结果信息   |
 
 
 ### 二.图片处理业务
@@ -149,8 +223,8 @@ URL [https://photosaying.xht97.cn/community](https://photosaying.xht97.cn/commun
 |错误码  |对应详细信息 |
 |:----  |:----      |
 |0     |没有错误    |
-|      |     |
-|      |     |
+|1      |用户名不存在     |
+|2      |验证码校验错误     |
 |      |     |
 |      |     |
 |      |     |
